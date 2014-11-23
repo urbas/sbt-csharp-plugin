@@ -1,0 +1,3 @@
+> csharp:compile
+$ exists target/csharp/v4.0.30319/anycpu/debug/compiled/csharp-hello-world.exe
+$ pause
