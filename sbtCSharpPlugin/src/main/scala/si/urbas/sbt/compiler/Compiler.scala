@@ -3,9 +3,10 @@ package si.urbas.sbt.compiler
 import java.io.File
 
 import sbt.Logger
+import sbt.inc.Analysis
 
 trait Compiler {
 
-  def compile(logger: Logger, sourceDirectory: File, compiledOutputFile: File): Unit
+  def compile(params: CompileParameters): Analysis
 
 }

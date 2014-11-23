@@ -4,6 +4,7 @@ import sbt._
 import sbt.Keys._
 import sbt.inc.Analysis
 import sbt.plugins.{CorePlugin, JvmPlugin}
+import si.urbas.sbt.compiler.{CompilationOutputFile, SourceDirectory, CompileParameters}
 import si.urbas.sbt.csharp.compiler.CSharpCompiler
 
 object CSharpPlugin extends AutoPlugin with CSharpPluginKeys {
@@ -33,8 +34,12 @@ object CSharpPlugin extends AutoPlugin with CSharpPluginKeys {
 
   private def cSharpCompileTask(): Def.Initialize[Task[Analysis]] = {
     Def.task[Analysis] {
-      cSharpCompiler.value.compile(streams.value.log, cSharpSourceDirectory.value, cSharpCompiledOutputFile.value)
-      Analysis.Empty
+      val compileParameters = CompileParameters(
+        streams.value.log,
+        SourceDirectory(cSharpSourceDirectory.value),
+        CompilationOutputFile(cSharpCompiledOutputFile.value)
+      )
+      cSharpCompiler.value.compile(compileParameters)
     }
   }
 }
